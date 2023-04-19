@@ -4,10 +4,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class FinalCoderslabProjectApplication {
-
+public class AdvanceToDoApplication {
 	public static void main(String[] args) {
-		SpringApplication.run(FinalCoderslabProjectApplication.class, args);
+		SpringApplication.run(AdvanceToDoApplication.class, args);
 	}
-
 }

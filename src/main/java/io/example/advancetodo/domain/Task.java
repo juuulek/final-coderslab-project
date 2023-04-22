@@ -30,7 +30,7 @@ public class Task {
     @Column(columnDefinition = "text")
     private String description;
 
-    private LocalDateTime apperance;
+    private LocalDateTime appearance;
 
     private LocalDateTime alert;
 

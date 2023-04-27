@@ -1,4 +1,4 @@
-package io.example.advancetodo.domain;
+package io.example.advancetodo.entities;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

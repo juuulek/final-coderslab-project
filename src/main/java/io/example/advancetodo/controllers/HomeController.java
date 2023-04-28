@@ -23,7 +23,7 @@ public class HomeController {
     @ResponseBody
     @RequestMapping("/{user}")
     public String checkUser(@PathVariable String user) {
-        return "Sorry! Jeszcze nie umiem sprawdzić, czy uzytkownik <i>" + user + "</i> istnieje :(";
+        return "Sorry! Jeszcze nie umiem sprawdzić, czy użytkownik <i>" + user + "</i> istnieje :(";
     }
     // tu dorobię odpytanie GET zwracające na przeglądarkę, czy dany user istnieje
     // w następnym kroku będzie zwracał listy zadań tego usera i/lub zadania mu udostępnione, i/lub zadanie z jego filtrów

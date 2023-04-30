@@ -11,6 +11,8 @@ import javax.validation.constraints.Size;
 @Getter
 @Setter
 public class UserDto {
+    private Long id;
+
     @Size(min = 3, max = 63)
     @UniqueElements
     @NotBlank

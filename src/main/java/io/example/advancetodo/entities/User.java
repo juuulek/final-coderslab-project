@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.validator.constraints.UniqueElements;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -24,14 +23,14 @@ public class User {
 
     @Column(nullable = false, unique = true)
     @Size(min = 3, max = 63)
-    @UniqueElements
     @NotBlank
     private String login;
 
+    @Column(unique = true)
     @Email
     private String mail;
 
     // logowaniem i hasłami użytkowników dziś się nie zajmuję
     // na ten moment "logowanie" będzie odbywało się bez żadnej autoryzacji;
-    // Spring Security jest przygotowany w pomie, ale nie zakładam nauczenia się go przed obroną
+    // Spring Security jest przygotowany w pom-ie, ale nie zakładam nauczenia się go przed obroną projektu
 }

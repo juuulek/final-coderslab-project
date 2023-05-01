@@ -2,8 +2,8 @@ package io.example.advancetodo.dtos;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.validator.constraints.UniqueElements;
 
+import javax.persistence.Column;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
@@ -13,11 +13,12 @@ import javax.validation.constraints.Size;
 public class UserDto {
     private Long id;
 
+    @Column(nullable = false, unique = true)
     @Size(min = 3, max = 63)
-    @UniqueElements
     @NotBlank
     private String login;
 
+    @Column(unique = true)
     @Email
     private String mail;
 }

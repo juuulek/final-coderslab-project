@@ -35,8 +35,28 @@ public class UserController {
             return ResponseEntity.ok(users);
     }
 
-    // pozostałe getty (by id, by login oraz by mail
+    @Operation(summary = "Gets user", description = "Gets specific user by id")
+    @GetMapping("/{id}")
+    public ResponseEntity<UserDto> getById(@PathVariable Long id) {
+        UserDto dto = userService.getById(id);
+        return dto == null ? ResponseEntity.notFound().build() : ResponseEntity.ok(dto);
+    }
 
+    @Operation(summary = "Gets user", description = "Gets specific user by login")
+    @GetMapping("/login/{login}")
+    public ResponseEntity<UserDto> getByLogin(@PathVariable String login) {
+        UserDto dto = userService.getByLogin(login);
+        return dto == null ? ResponseEntity.notFound().build() : ResponseEntity.ok(dto);
+    }
+
+    @Operation(summary = "Gets user", description = "Gets specific user by e-mail")
+    @GetMapping("/mail/{mail}")
+    public ResponseEntity<UserDto> getByMail(@PathVariable String mail) {
+        UserDto dto = userService.getByMail(mail);
+        return dto == null ? ResponseEntity.notFound().build() : ResponseEntity.ok(dto);
+    }
+
+    @Operation(summary = "Posts user", description = "Adds user to data base")
     @PostMapping
     public ResponseEntity<UserDto> add(@RequestBody @Valid UserDto dto) {
         dto = userService.add(dto);

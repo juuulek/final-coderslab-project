@@ -17,10 +17,20 @@ public class UserService {
     private final UserMapper userMapper;
 
     public List<UserDto> getAll() {
-        return userMapper.mapToDto(userRepository.findAll()); // nie podoba mi się tu "find"
+        return userMapper.mapToDto(userRepository.findAll());
     }
 
-    // pozostałe getty (by id, by login oraz by mail
+    public UserDto getById(Long id) {
+        return userMapper.mapToDto(userRepository.findById(id).orElse(null));
+    }
+
+    public UserDto getByLogin(String login) {
+        return userMapper.mapToDto(userRepository.findByLogin(login).orElse(null));
+    }
+
+    public UserDto getByMail(String mail) {
+        return userMapper.mapToDto(userRepository.findByMail(mail).orElse(null));
+    }
 
     public UserDto add(UserDto dto) {
         User user = userMapper.mapToEntity(dto);

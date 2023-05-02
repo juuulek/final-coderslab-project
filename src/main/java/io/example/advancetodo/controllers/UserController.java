@@ -22,8 +22,7 @@ public class UserController {
 
     @Operation(summary = "Gets all users", description = "Gets list of all users")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Successful response",
-                    content = @Content(schema = @Schema(implementation = UserDto[].class))),
+            @ApiResponse(responseCode = "200", description = "Successful response"),
             @ApiResponse(responseCode = "404", description = "Users cannot be found")
     })
     @GetMapping
@@ -36,6 +35,10 @@ public class UserController {
     }
 
     @Operation(summary = "Gets user", description = "Gets specific user by id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Successful response"),
+            @ApiResponse(responseCode = "404", description = "User cannot be found")
+    })
     @GetMapping("/id/{id}")
     public ResponseEntity<UserDto> getById(@PathVariable Long id) {
         UserDto dto = userService.getById(id);
@@ -43,6 +46,10 @@ public class UserController {
     }
 
     @Operation(summary = "Gets user", description = "Gets specific user by login")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Successful response"),
+            @ApiResponse(responseCode = "404", description = "User cannot be found")
+    })
     @GetMapping("/login/{login}")
     public ResponseEntity<UserDto> getByLogin(@PathVariable String login) {
         UserDto dto = userService.getByLogin(login);
@@ -50,6 +57,10 @@ public class UserController {
     }
 
     @Operation(summary = "Gets user", description = "Gets specific user by e-mail")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Successful response"),
+            @ApiResponse(responseCode = "404", description = "User cannot be found")
+    })
     @GetMapping("/mail/{mail}")
     public ResponseEntity<UserDto> getByMail(@PathVariable String mail) {
         UserDto dto = userService.getByMail(mail);

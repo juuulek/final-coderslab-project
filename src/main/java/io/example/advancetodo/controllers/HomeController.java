@@ -1,5 +1,6 @@
 package io.example.advancetodo.controllers;
 
+import io.swagger.v3.oas.annotations.Hidden;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -8,6 +9,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.util.Random;
 
 @Controller
+@Hidden // nie ma sensu, żeby ten webowy kontroler był widoczny w swaggerze
 public class HomeController {
     @ResponseBody
     @RequestMapping

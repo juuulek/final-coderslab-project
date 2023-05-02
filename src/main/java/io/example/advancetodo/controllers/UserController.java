@@ -3,8 +3,6 @@ package io.example.advancetodo.controllers;
 import io.example.advancetodo.dtos.UserDto;
 import io.example.advancetodo.services.UserService;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.media.Content;
-import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.AllArgsConstructor;
@@ -74,6 +72,18 @@ public class UserController {
         return ResponseEntity.ok(dto);
     }
 
+    @Operation(summary = "Deletes user", description = "Deletes user base on id")
+    @DeleteMapping("/{id}")
+    public ResponseEntity<UserDto> delete(@PathVariable Long id) {
+        userService.delete(id);
+        return ResponseEntity.noContent().build();
+    }
 
-    // to do
+    @Operation(summary = "Updates user", description = "Updates user base on id")
+    @PutMapping("/{id}")
+    public ResponseEntity<UserDto> update(@PathVariable Long id, @RequestBody @Valid UserDto dto) {
+        dto = userService.update(id, dto);
+        return ResponseEntity.ok(dto);
+    }
+    // być może warto w przyszłości dodać jeszcze jeden PUT, taki bez path variable a z samym json-em
 }

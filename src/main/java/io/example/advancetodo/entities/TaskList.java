@@ -5,6 +5,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +18,9 @@ public class TaskList {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Size(min = 3, max = 63)
+    private String name;
 
     @NotNull
     @ManyToOne

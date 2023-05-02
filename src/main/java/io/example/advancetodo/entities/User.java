@@ -17,13 +17,14 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false, unique = true, columnDefinition = "varchar(64)")
     @Size(min = 3, max = 63)
     @NotBlank
     private String login;
 
     @Column(unique = true)
     @Email
+    @Size(max = 255)
     private String mail;
 
     // logowaniem i hasłami użytkowników dziś się nie zajmuję

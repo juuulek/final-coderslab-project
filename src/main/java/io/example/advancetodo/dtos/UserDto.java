@@ -24,5 +24,6 @@ public class UserDto {
     @Schema (description = "User e-mail", example = "jon.doe@example.io")
     @Column(unique = true)
     @Email
+    @Size(max = 255)
     private String mail;
 }

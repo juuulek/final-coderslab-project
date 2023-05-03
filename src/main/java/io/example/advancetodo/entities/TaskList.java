@@ -6,7 +6,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.time.LocalTime;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,5 +31,5 @@ public class TaskList {
     @ManyToMany
     private List<User> shared = new ArrayList<>();
 
-    private LocalTime deleting; // do sprawdzenia, czy w ogóle mogę tę klasę użyć w tym celu
+    private LocalDateTime deleting;
 }

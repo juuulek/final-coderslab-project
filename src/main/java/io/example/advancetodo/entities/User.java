@@ -17,7 +17,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, unique = true, columnDefinition = "varchar(64)")
+    @Column(nullable = false, unique = true)
     @Size(min = 3, max = 63)
     @NotBlank
     private String login;

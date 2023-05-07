@@ -33,7 +33,7 @@ public class TaskListService {
     }
 
     public void delete(Long id) {
-        if (taskListRepository.existsById(id))
+        if (!taskListRepository.existsById(id))
             throw new InputMismatchException();
         taskListRepository.deleteById(id);
     }

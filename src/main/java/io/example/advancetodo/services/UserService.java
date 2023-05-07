@@ -41,7 +41,7 @@ public class UserService {
     }
 
     public void delete(Long id) {
-        if (userRepository.existsById(id))
+        if (!userRepository.existsById(id))
             throw new InputMismatchException();
         userRepository.deleteById(id);
     }

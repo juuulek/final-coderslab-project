@@ -52,3 +52,44 @@ Content-Type: application/json
   "name": "secret shopping",
   "ownerId": 2
 }
+
+###
+POST http://localhost:9876/api/tasks
+Content-Type: application/json
+
+{
+  "name": "bułki",
+  "listId": 1,
+  "tags": "pieczywo"
+}
+
+###
+POST http://localhost:9876/api/tasks
+Content-Type: application/json
+
+{
+  "name": "gumy do żucia",
+  "listId": 1
+}
+
+###
+POST http://localhost:9876/api/tasks
+Content-Type: application/json
+
+{
+  "name": "czekolada",
+  "listId": 2,
+  "description": "odkupić, bo jej zeżarłeś",
+  "deadline": "2023-05-14T12:00"
+}
+
+###
+POST http://localhost:9876/api/tasks
+Content-Type: application/json
+
+{
+  "name": "monte",
+  "listId": 1,
+  "tags": "nabiał, dla niej",
+  "deadline": "2023-05-14T12:00"
+}

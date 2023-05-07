@@ -1,6 +1,7 @@
 package io.example.advancetodo.entities;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -10,6 +11,7 @@ import javax.validation.constraints.Size;
 
 @Getter
 @Setter
+@NoArgsConstructor
 @Entity
 @Table(name = "users")
 public class User {
@@ -26,6 +28,10 @@ public class User {
     @Email
     @Size(max = 255)
     private String mail;
+
+    public User(Long id) {
+        this.id = id;
+    }
 
     // logowaniem i hasłami użytkowników dziś się nie zajmuję
     // na ten moment "logowanie" będzie odbywało się bez żadnej autoryzacji;

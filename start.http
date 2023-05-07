@@ -1,0 +1,54 @@
+POST http://localhost:9876/api/users
+Content-Type: application/json
+
+{
+  "login": "Alfred",
+  "mail": "test@alior.pl"
+}
+
+###
+POST http://localhost:9876/api/users
+Content-Type: application/json
+
+{
+  "login": "juuulek"
+}
+
+###
+POST http://localhost:9876/api/users
+Content-Type: application/json
+
+{
+  "login": "yourmother13",
+  "mail": "someimmatureemailaddress@gmail.com"
+}
+
+###
+POST http://localhost:9876/api/users
+Content-Type: application/json
+
+{
+  "login": "fourth"
+}
+
+###
+POST http://localhost:9876/api/lists
+Content-Type: application/json
+
+{
+  "name": "shopping",
+  "ownerId": 2,
+  "shared": [
+    1,
+    4
+  ]
+}
+
+###
+POST http://localhost:9876/api/lists
+Content-Type: application/json
+
+{
+  "name": "secret shopping",
+  "ownerId": 2
+}

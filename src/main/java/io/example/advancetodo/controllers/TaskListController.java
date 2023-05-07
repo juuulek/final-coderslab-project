@@ -54,7 +54,7 @@ public class TaskListController {
         return ResponseEntity.noContent().build();
     }
 
-    @Operation(summary = "Updates user", description = "Updates user base on id")
+    @Operation(summary = "Updates list", description = "Updates task list base on id")
     @PutMapping("/{id}")
     public ResponseEntity<TaskListDto> update(@PathVariable Long id, @RequestBody @Valid TaskListDto dto) {
         dto = taskListService.update(id, dto);

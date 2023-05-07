@@ -19,10 +19,10 @@ import java.util.List;
 public class TaskController {
     private final TaskService taskService;
 
-    @Operation(summary = "Gets all lists", description = "Gets list of task list")
+    @Operation(summary = "Gets all tasks", description = "Gets list of tasks")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Successful response"),
-            @ApiResponse(responseCode = "404", description = "Lists cannot be found")
+            @ApiResponse(responseCode = "404", description = "Tasks cannot be found")
     })
     @GetMapping
     public ResponseEntity<List<TaskDto>> getAll() {
@@ -30,10 +30,10 @@ public class TaskController {
         return lists.isEmpty() ? ResponseEntity.notFound().build() : ResponseEntity.ok(lists);
     }
 
-    @Operation(summary = "Gets list", description = "Gets specific task list by id")
+    @Operation(summary = "Gets task", description = "Gets specific task by id")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Successful response"),
-            @ApiResponse(responseCode = "404", description = "List cannot be found")
+            @ApiResponse(responseCode = "404", description = "Task cannot be found")
     })
     @GetMapping("/{id}")
     public ResponseEntity<TaskDto> getById(@PathVariable Long id) {
@@ -41,7 +41,7 @@ public class TaskController {
         return dto == null ? ResponseEntity.notFound().build() : ResponseEntity.ok(dto);
     }
 
-    @Operation(summary = "Posts list", description = "Adds task list to data base")
+    @Operation(summary = "Posts task", description = "Adds task to data base")
     @PostMapping
     public ResponseEntity<TaskDto> add(@RequestBody @Valid TaskDto dto) {
         dto = taskService.add(dto);

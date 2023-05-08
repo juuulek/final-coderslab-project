@@ -39,13 +39,15 @@ public class TaskDto {
     private LocalDateTime alert;
 
     @Schema(description = "Task deadline", example = "11-11-2011 11:11")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy HH:mm")
     private LocalDateTime deadline;
 
     @Schema(description = "The time when the task was marked as done. After this moment front app should f.ex. crossed out this task",
             example = "12-12-2012 12:12")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy HH:mm")
     private LocalDateTime done;
 
-    @Schema (description = "Tags as plaintext. Should be separated by comma", example = "bedroom, only in daylight")
+    @Schema(description = "Tags as plaintext. Should be separated by comma", example = "bedroom, only in daylight")
     @Column(columnDefinition = "text")
     private String tags;
 }

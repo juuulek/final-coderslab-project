@@ -80,7 +80,7 @@ Content-Type: application/json
   "name": "czekolada",
   "listId": 2,
   "description": "odkupić, bo jej zeżarłeś",
-  "deadline": "2023-05-14T12:00"
+  "deadline": "14-05-2023 12:00"
 }
 
 ###
@@ -91,5 +91,5 @@ Content-Type: application/json
   "name": "monte",
   "listId": 1,
   "tags": "nabiał, dla niej",
-  "deadline": "2023-05-14T12:00"
+  "deadline": "14-05-2023 12:00"
 }

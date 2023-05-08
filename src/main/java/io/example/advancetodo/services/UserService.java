@@ -8,7 +8,6 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
-import java.util.InputMismatchException;
 import java.util.List;
 
 @Service
@@ -42,16 +41,16 @@ public class UserService {
 
     public void delete(Long id) {
         if (!userRepository.existsById(id))
-            throw new InputMismatchException();
+            throw new IllegalArgumentException("User cannot be found");
         userRepository.deleteById(id);
     }
 
     public UserDto update(Long id, UserDto dto) {
         Assert.notNull(dto.getId(), "Id cannot be empty");
         if (!dto.getId().equals(id))
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("Id's mismatch");
         if (!userRepository.existsById(id))
-            throw new InputMismatchException();
+            throw new IllegalArgumentException("User cannot be found");
 
         User entity = userMapper.mapToEntity(dto);
         userRepository.save(entity);

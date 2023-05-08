@@ -8,7 +8,6 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
-import java.util.InputMismatchException;
 import java.util.List;
 
 @Service
@@ -34,16 +33,16 @@ public class TaskService {
 
     public void delete(Long id) {
         if (!taskRepository.existsById(id))
-            throw new InputMismatchException();
+            throw new IllegalArgumentException("Task doesn't exist");
         taskRepository.deleteById(id);
     }
 
     public TaskDto update(Long id, TaskDto dto) {
         Assert.notNull(dto.getId(), "Id cannot be empty");
         if (!dto.getId().equals(id))
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("Id's mismatch");
         if (!taskRepository.existsById(id))
-            throw new InputMismatchException();
+            throw new IllegalArgumentException("Task doesn't exist");
 
         Task entity = taskMapper.mapToEntity(dto);
         taskRepository.save(entity);

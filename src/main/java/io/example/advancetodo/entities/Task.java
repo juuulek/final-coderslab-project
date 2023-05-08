@@ -36,7 +36,8 @@ public class Task {
     private LocalDateTime done;
 
     @Column(columnDefinition = "text")
-    @Pattern(regexp = "([^,]*\\w[^,]*)(,[^,]*\\w[^,]*)*", message = "Tags are comma separated and each tag must contain at least one ISO basic Latin letter")
+    @Pattern(regexp = "([^\\W\\d_][^,]*)(,([^\\W\\d_][^,]*))*", message = "Tags are comma separated and each tag must start ISO basic Latin letter")
+    // ([^\W\d_][^,]*)(,([^\W\d_][^,]*))*
     private String tags;
 
     public void setAppearance(LocalDateTime appearance) {

@@ -38,9 +38,11 @@ public class TaskListService {
         return taskListMapper.mapToDto(taskList);
     }
 
+    @Transactional
     public void delete(Long id) {
         if (!taskListRepository.existsById(id))
             throw new IllegalArgumentException("Task list doesn't exist");
+        taskRepository.deleteAllByList_Id(id);
         taskListRepository.deleteById(id);
     }
 

@@ -7,6 +7,7 @@ import lombok.Setter;
 
 import javax.persistence.Column;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import java.time.LocalDateTime;
 
 @Getter
@@ -49,5 +50,6 @@ public class TaskDto {
 
     @Schema(description = "Tags as plaintext. Should be separated by comma", example = "bedroom, only in daylight")
     @Column(columnDefinition = "text")
+    @Pattern(regexp = "([^,]*\\w[^,]*)(,[^,]*\\w[^,]*)*", message = "Tags are comma separated and each tag must contain at least one ISO basic Latin letter")
     private String tags;
 }

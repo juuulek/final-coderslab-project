@@ -5,6 +5,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import java.time.LocalDateTime;
 
 @Getter
@@ -35,6 +36,7 @@ public class Task {
     private LocalDateTime done;
 
     @Column(columnDefinition = "text")
+    @Pattern(regexp = "([^,]*\\w[^,]*)(,[^,]*\\w[^,]*)*", message = "Tags are comma separated and each tag must contain at least one ISO basic Latin letter")
     private String tags;
 
     public void setAppearance(LocalDateTime appearance) {

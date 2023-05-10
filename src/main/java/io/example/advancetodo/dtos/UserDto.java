@@ -28,9 +28,9 @@ public class UserDto {
     @Size(max = 255)
     private String mail;
 
-    @Schema(description = "List of its tasks list")
+    @Schema(description = "List of its task lists")
     List<Long> itsLists;
 
-    @Schema(description = "Lists that are shared with its")
+    @Schema(description = "Task lists that are shared with its")
     List<Long> listsSharedIts; // niechaj ta linijka stanowi dla mnie pomnik "ku pamięci", jak to drobna nieuwaga potrafi ukraść tak wiele godzin życia
 }

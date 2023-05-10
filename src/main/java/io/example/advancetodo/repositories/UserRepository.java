@@ -10,5 +10,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     Optional<User> findByMail(String mail);
 
-    // jeżeli starczy czasu, chcę tu dorzucić coś zliczającego wszystkich użytkowników, aby wrzucić to w homecontroller
+    boolean existsByLogin(String login);
+
+    boolean existsByMail(String mail);
 }

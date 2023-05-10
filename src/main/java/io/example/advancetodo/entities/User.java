@@ -8,6 +8,7 @@ import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.util.List;
 
 @Getter
 @Setter
@@ -31,6 +32,18 @@ public class User {
 
     public User(Long id) {
         this.id = id;
+    }
+
+    @OneToMany(mappedBy = "owner")
+    List<TaskList> itsLists;
+
+    @ManyToMany(mappedBy = "shared")
+    List<TaskList> listsSharedIts;
+
+    public String toHtml() {
+        return "<div class=\"login odd\">login:\t" + login + "</div>\n" +
+                "<div class=\"mail even\">e-mail:\t" + mail + "</div>\n" +
+                "<div class=\"id odd\">id:\t" + id + "</div>";
     }
 
     // logowaniem i hasłami użytkowników dziś się nie zajmuję

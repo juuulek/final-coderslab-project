@@ -1,6 +1,7 @@
 package io.example.advancetodo.entities;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -11,6 +12,7 @@ import java.util.List;
 
 @Getter
 @Setter
+@NoArgsConstructor
 @Entity
 @Table(name = "list")
 public class TaskList {
@@ -30,4 +32,8 @@ public class TaskList {
 
     @ManyToMany
     private List<User> shared = new ArrayList<>();
+
+    public TaskList(Long id) {
+        this.id = id;
+    }
 }

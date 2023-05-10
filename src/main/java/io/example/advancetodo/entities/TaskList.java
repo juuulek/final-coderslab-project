@@ -33,7 +33,30 @@ public class TaskList {
     @ManyToMany
     private List<User> shared = new ArrayList<>();
 
+    @OneToMany(mappedBy = "list")
+    private List<Task> tasks;
+
     public TaskList(Long id) {
         this.id = id;
+    }
+
+    public String toHtml() {
+        StringBuilder response = new StringBuilder("<div>" + name + "</div>");
+        Flag odd = new Flag();
+        if (tasks == null || tasks.isEmpty())
+            response.append("brak zadań");
+        else
+            for (Task task : tasks)
+                response.append("<div class=\"" + (odd.check() ? "odd" : "even") + "\">" + task.getName() + "</div>");
+        return response.toString();
+    }
+
+    private static class Flag {
+        boolean status = true;
+
+        boolean check() {
+            status = !status;
+            return !status;
+        }
     }
 }

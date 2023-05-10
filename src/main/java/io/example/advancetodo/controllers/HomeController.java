@@ -82,7 +82,7 @@ public class HomeController {
             response.append("brak");
         else
             for (TaskList itsList : user.getItsLists())
-                response.append("<div>" + itsList.getName() + "</div>");
+                response.append("<div>" + itsList.toHtml() + "</div>");
         response.append("</p>\n");
 
 
@@ -92,7 +92,7 @@ public class HomeController {
             response.append("brak");
         else
             for (TaskList listSharedIts : user.getListsSharedIts())
-                response.append("<div>" + listSharedIts.getName() + "</div>");
+                response.append("<div>" + listSharedIts.toHtml() + "</div>");
         response.append("</p>\n");
 
         return response.toString();

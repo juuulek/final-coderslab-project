@@ -28,4 +28,7 @@ public class TaskListDto {
 
     @Schema(description = "IDs of the people this list is shared with")
     private List<Long> shared = new ArrayList<>();
+
+    @Schema(description = "Tasks on this list")
+    private List<Long> tasks;
 }

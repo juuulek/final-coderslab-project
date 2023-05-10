@@ -1,6 +1,7 @@
 package io.example.advancetodo.entities;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -10,6 +11,7 @@ import java.time.LocalDateTime;
 
 @Getter
 @Setter
+@NoArgsConstructor
 @Entity
 @Table(name = "tasks")
 public class Task {
@@ -39,6 +41,10 @@ public class Task {
     @Pattern(regexp = "([^\\W\\d_][^,]*)(,([^\\W\\d_][^,]*))*", message = "Tags are comma separated and each tag must start ISO basic Latin letter")
     // ([^\W\d_][^,]*)(,([^\W\d_][^,]*))*
     private String tags;
+
+    public Task(Long id) {
+        this.id = id;
+    }
 
     public void setAppearance(LocalDateTime appearance) {
         if (appearance != null) {

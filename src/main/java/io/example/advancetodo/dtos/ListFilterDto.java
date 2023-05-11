@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.Column;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import java.util.ArrayList;
@@ -21,7 +22,7 @@ public class ListFilterDto {
     private Long ownerId;
 
     @Schema(description = "Only tasks on these lists are to be included")
-    @NotNull
+    @NotEmpty
     private List<Long> lists = new ArrayList<>();
 
     @Schema(description = "If null all tasks included. Otherwise, tasks without these tags are to be excluded", example = "only in daylight")

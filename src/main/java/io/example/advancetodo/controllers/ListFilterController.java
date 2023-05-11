@@ -7,11 +7,9 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -42,5 +40,24 @@ public class ListFilterController {
         return dto == null ? ResponseEntity.notFound().build() : ResponseEntity.ok(dto);
     }
 
-    // to do
+    @Operation(summary = "Posts filter", description = "Adds filter to data base")
+    @PostMapping
+    public ResponseEntity<ListFilterDto> add(@RequestBody @Valid ListFilterDto dto) {
+        dto = listFilterService.add(dto);
+        return ResponseEntity.ok(dto);
+    }
+
+    @Operation(summary = "Deletes filter", description = "Deletes filter base on id")
+    @DeleteMapping("/{id}")
+    public ResponseEntity<ListFilterDto> delete(@PathVariable Long id) {
+        listFilterService.delete(id);
+        return ResponseEntity.noContent().build();
+    }
+
+    @Operation(summary = "Updates filter", description = "Updates filter base on id")
+    @PutMapping("/{id}")
+    public ResponseEntity<ListFilterDto> update(@PathVariable Long id, @RequestBody @Valid ListFilterDto dto) {
+        dto = listFilterService.update(id, dto);
+        return ResponseEntity.ok(dto);
+    }
 }

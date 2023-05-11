@@ -7,7 +7,6 @@ import io.example.advancetodo.entities.User;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Mapper(componentModel = "spring")
@@ -27,22 +26,18 @@ public interface TaskListMapper {
             return user.getId();
     }
 
-    default List<User> mapToUsers(List<Long> userIds) {
-        if (userIds == null)
+    default User mapToUser(Long userId) {
+        if (userId == null)
             return null;
-        List<User> users = new ArrayList<>();
-        for (Long userId : userIds)
-            users.add(new User(userId));
-        return users;
+        else
+            return new User(userId);
     }
 
-    default List<Task> mapToTask(List<Long> taskIds) {
-        if (taskIds == null)
+    default Task mapToTask(Long taskId) {
+        if (taskId == null)
             return null;
-        List<Task> tasks = new ArrayList<>();
-        for (Long taskId : taskIds)
-            tasks.add(new Task(taskId));
-        return tasks;
+        else
+            return new Task(taskId);
     }
 
     default Long mapToTaskId(Task task) {

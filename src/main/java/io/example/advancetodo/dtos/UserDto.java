@@ -8,6 +8,7 @@ import javax.persistence.Column;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -29,8 +30,11 @@ public class UserDto {
     private String mail;
 
     @Schema(description = "List of its task lists")
-    List<Long> itsLists;
+    List<Long> itsLists = new ArrayList<>();
 
     @Schema(description = "Task lists that are shared with its")
-    List<Long> listsSharedIts; // niechaj ta linijka stanowi dla mnie pomnik "ku pamięci", jak to drobna nieuwaga potrafi ukraść tak wiele godzin życia
+    List<Long> listsSharedIts = new ArrayList<>(); // niechaj ta linijka stanowi dla mnie pomnik "ku pamięci", jak to drobna nieuwaga potrafi ukraść tak wiele godzin życia
+
+    @Schema(description = "List of its filters")
+    List<Long> filters = new ArrayList<>();
 }

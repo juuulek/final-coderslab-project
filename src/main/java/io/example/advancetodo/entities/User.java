@@ -8,6 +8,7 @@ import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -30,15 +31,18 @@ public class User {
     @Size(max = 255)
     private String mail;
 
+    @OneToMany(mappedBy = "owner")
+    List<TaskList> itsLists = new ArrayList<>();
+
+    @ManyToMany(mappedBy = "shared")
+    List<TaskList> listsSharedIts = new ArrayList<>();
+
+    @OneToMany(mappedBy = "owner")
+    List<ListFilter> filters = new ArrayList<>();
+
     public User(Long id) {
         this.id = id;
     }
-
-    @OneToMany(mappedBy = "owner")
-    List<TaskList> itsLists;
-
-    @ManyToMany(mappedBy = "shared")
-    List<TaskList> listsSharedIts;
 
     public String toHtml() {
         return "<div class=\"login odd\">login:\t" + login + "</div>\n" +

@@ -31,10 +31,13 @@ public class TaskList {
 //    deleting — do zaimplementowania, jeżeli zdążę
 
     @ManyToMany
+    @JoinTable(name = "users_sharing_lists",
+            joinColumns = @JoinColumn(name = "list_id"),
+            inverseJoinColumns = @JoinColumn(name = "sharing_user_id"))
     private List<User> shared = new ArrayList<>();
 
     @OneToMany(mappedBy = "list")
-    private List<Task> tasks;
+    private List<Task> tasks = new ArrayList<>();
 
     public TaskList(Long id) {
         this.id = id;
@@ -51,8 +54,18 @@ public class TaskList {
         return response.toString();
     }
 
+    public boolean hasPermission(Long userId) {
+        if (userId.equals(owner.getId()))
+            return true;
+        if (shared != null)
+            for (User user : shared)
+                if (userId.equals(user.getId()))
+                    return true;
+        return false;
+    }
+
     private static class Flag {
-        boolean status = true;
+        private boolean status = true;
 
         boolean check() {
             status = !status;

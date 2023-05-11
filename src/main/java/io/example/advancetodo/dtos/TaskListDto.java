@@ -30,5 +30,5 @@ public class TaskListDto {
     private List<Long> shared = new ArrayList<>();
 
     @Schema(description = "Tasks on this list")
-    private List<Long> tasks;
+    private List<Long> tasks = new ArrayList<>();
 }

@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
@@ -15,6 +16,7 @@ import java.util.List;
 public class UserService {
     private final UserRepository userRepository;
     private final UserMapper userMapper;
+    private final TaskListService taskListService;
 
     public List<UserDto> getAll() {
         return userMapper.mapToDto(userRepository.findAll());
@@ -39,6 +41,7 @@ public class UserService {
         return userMapper.mapToDto(user);
     }
 
+    @Transactional
     public void delete(Long id) {
         if (!userRepository.existsById(id))
             throw new IllegalArgumentException("User cannot be found");

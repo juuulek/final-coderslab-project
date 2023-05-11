@@ -1,11 +1,11 @@
 package io.example.advancetodo.mappers;
 
 import io.example.advancetodo.dtos.UserDto;
+import io.example.advancetodo.entities.ListFilter;
 import io.example.advancetodo.entities.TaskList;
 import io.example.advancetodo.entities.User;
 import org.mapstruct.Mapper;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Mapper(componentModel = "spring")
@@ -17,12 +17,11 @@ public interface UserMapper {
 
     List<UserDto> mapToDto(List<User> entities);
 
-    default List<TaskList> mapToTaskList(List<Long> taskListIds) {
-        List<TaskList> taskLists = new ArrayList<>();
-        if (taskListIds != null)
-            for (Long taskListId : taskListIds)
-                taskLists.add(new TaskList(taskListId));
-        return taskLists;
+    default TaskList mapToTaskList(Long taskListId) {
+        if (taskListId == null)
+            return null;
+        else
+            return new TaskList(taskListId);
     }
 
     default Long mapToTaskListId(TaskList taskList) {
@@ -30,5 +29,19 @@ public interface UserMapper {
             return null;
         else
             return taskList.getId();
+    }
+
+    default ListFilter mapToListFilter(Long id) {
+        if (id == null)
+            return null;
+        else
+            return new ListFilter(id);
+    }
+
+    default Long mapToListFilterId(ListFilter listFilter) {
+        if (listFilter == null)
+            return null;
+        else
+            return listFilter.getId();
     }
 }

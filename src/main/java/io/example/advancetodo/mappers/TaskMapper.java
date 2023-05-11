@@ -15,5 +15,5 @@ public interface TaskMapper {
     @Mapping(source = "list.id", target = "listId")
     TaskDto mapToDto(Task entity);
 
-    List<TaskDto> mapToDto(List<Task> entity);
+    List<TaskDto> mapToDto(List<Task> entities);
 }

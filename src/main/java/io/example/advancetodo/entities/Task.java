@@ -93,4 +93,11 @@ public class Task {
         }
         this.done = done;
     }
+
+    public boolean hasTag(String compareTag) {
+        for (String myTag : tags.split(","))
+            if (myTag.equals(compareTag))
+                return true;
+        return false;
+    }
 }

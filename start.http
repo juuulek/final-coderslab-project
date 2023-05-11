@@ -80,6 +80,7 @@ Content-Type: application/json
   "name": "czekolada",
   "listId": 2,
   "description": "odkupić, bo jej zeżarłeś",
+  "tags": "mleczne",
   "deadline": "14-05-2023 12:00"
 }
 
@@ -90,6 +91,19 @@ Content-Type: application/json
 {
   "name": "monte",
   "listId": 1,
-  "tags": "nabiał, dla niej",
+  "tags": "mleczne,dla niej",
   "deadline": "14-05-2023 12:00"
+}
+
+###
+POST http://localhost:9876/api/filters
+Content-Type: application/json
+
+{
+  "ownerId": 2,
+  "lists": [
+    1,
+    2
+  ],
+  "includedTags": "pieczywo,mleczne"
 }

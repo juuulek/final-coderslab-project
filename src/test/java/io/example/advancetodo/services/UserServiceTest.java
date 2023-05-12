@@ -1,16 +1,20 @@
 package io.example.advancetodo.services;
 
 import io.example.advancetodo.dtos.UserDto;
+import io.example.advancetodo.entities.User;
 import io.example.advancetodo.mappers.UserMapper;
 import io.example.advancetodo.repositories.UserRepository;
-import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import java.util.List;
+import java.util.Optional;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.Mockito.*;
 
 class UserServiceTest {
     @Mock
@@ -20,22 +24,33 @@ class UserServiceTest {
     @InjectMocks
     private UserService userService;
 
-    public UserServiceTest() {
+    @BeforeEach
+    void setUp() {
         MockitoAnnotations.openMocks(this);
     }
 
     @Test
-    public void shouldReturnNoUsersIfThereWasNoSavedUsersBefore() {
+    public void shouldGetUserById() {
         // given
-        // nothing given
+        final Long ID = 1L;
+        final String LOGIN = "testowy";
+        User user = new User();
+        user.setLogin(LOGIN);
+        user.setId(ID);
+        UserDto userDto = new UserDto();
+        userDto.setLogin(LOGIN);
+        userDto.setId(ID);
 
         // when
-        UserDto nullUser = userService.getById(1L);
-        List<UserDto> emptyList = userService.getAll();
+        when(userRepository.findById(ID)).thenReturn(Optional.of(user));
+        when(userMapper.mapToDto(user)).thenReturn(userDto);
+        UserDto result = userService.getById(ID);
 
         // then
-        Assertions.assertNull(nullUser);
-        Assertions.assertTrue(emptyList.isEmpty());
+        verify(userRepository, times(1)).findById(ID);
+        verify(userMapper, times(1)).mapToDto(user);
+        assertNotNull(result);
+        assertEquals(userDto, result);
     }
 
 //    @Test

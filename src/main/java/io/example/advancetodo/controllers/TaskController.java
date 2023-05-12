@@ -61,4 +61,11 @@ public class TaskController {
         dto = taskService.update(id, dto);
         return ResponseEntity.ok(dto);
     }
+
+    @Operation(summary = "\"Done\" task", description = "Marks task as done base on its id")
+    @PutMapping("/done/{id}")
+    public ResponseEntity<TaskDto> markAsDone(@PathVariable Long id) {
+        TaskDto dto = taskService.markAsDone(id);
+        return ResponseEntity.ok(dto);
+    }
 }

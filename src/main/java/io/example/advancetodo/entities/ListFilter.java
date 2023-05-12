@@ -8,6 +8,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,6 +21,9 @@ public class ListFilter {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Size(min = 3, max = 63)
+    private String name;
 
     @NotNull
     @ManyToOne
@@ -47,20 +51,21 @@ public class ListFilter {
 
     public List<Task> getTasks() {
         List<Task> result = new ArrayList<>();
-        if (lists != null)
+        if (lists != null && !lists.isEmpty())
             for (TaskList taskList : lists)
-                if (taskList.hasPermission(owner.getId()) && !taskList.getTasks().isEmpty())
+                if (taskList.hasPermission(owner.getId()) && taskList.getTasks() != null && !taskList.getTasks().isEmpty())
                     for (Task task : taskList.getTasks()) {
                         boolean shouldAdd = false;
-                        if (includedTags == null || includedTags.isEmpty())
+                        if (includedTags == null || includedTags.isBlank())
                             shouldAdd = true;
-                        else
+                        else {
                             for (String tag : includedTags.split(","))
                                 if (task.hasTag(tag)) {
                                     shouldAdd = true;
                                     break;
                                 }
-                        if (shouldAdd)
+                        }
+                        if (shouldAdd && excludedTags != null && !excludedTags.isBlank())
                             for (String tag : excludedTags.split(","))
                                 if (task.hasTag(tag)) {
                                     shouldAdd = false;
@@ -70,5 +75,11 @@ public class ListFilter {
                             result.add(task);
                     }
         return result;
+    }
+
+
+    public String toHtml() {
+        List<Task> tasks = getTasks();
+        return TaskList.listOrFilterToHtml(name, id, tasks);
     }
 }

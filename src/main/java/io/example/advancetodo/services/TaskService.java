@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -45,6 +46,21 @@ public class TaskService {
             throw new IllegalArgumentException("Task doesn't exist");
 
         Task entity = taskMapper.mapToEntity(dto);
+        taskRepository.save(entity);
+        return taskMapper.mapToDto(entity);
+    }
+
+    public TaskDto markAsDone(Long id) {
+        return markAsDone(id, LocalDateTime.now());
+    }
+
+    public TaskDto markAsDone(Long id, LocalDateTime time) {
+        if (!taskRepository.existsById(id))
+            throw new IllegalArgumentException("Task doesn't exist");
+        if (time.isAfter(LocalDateTime.now()))
+            throw new IllegalArgumentException("Task cannot be mark as done with a future date/time");
+        Task entity = taskRepository.getReferenceById(id);
+        entity.setDone(time);
         taskRepository.save(entity);
         return taskMapper.mapToDto(entity);
     }

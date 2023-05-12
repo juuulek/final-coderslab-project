@@ -43,15 +43,24 @@ public class TaskList {
         this.id = id;
     }
 
-    public String toHtml() {
-        StringBuilder response = new StringBuilder("<div>" + name + "</div>");
-        Flag odd = new Flag();
+    static String listOrFilterToHtml(String name, Long id, List<Task> tasks) {
+        StringBuilder response = new StringBuilder("    <details class=\"list\">\n" +
+                "        <summary>" + (name == null || name.isBlank() ? "#" + id : name) + "</summary>\n");
+
         if (tasks == null || tasks.isEmpty())
-            response.append("brak zadań");
-        else
+            response.append("        <div>brak zadań</div>\n");
+        else {
+            Flag odd = new Flag();
             for (Task task : tasks)
-                response.append("<div class=\"" + (odd.check() ? "odd" : "even") + "\">" + task.getName() + "</div>");
+                response.append(task.toHtml(odd.check()) + "\n");
+        }
+
+        response.append("    </details>\n");
         return response.toString();
+    }
+
+    public String toHtml() {
+        return listOrFilterToHtml(name, id, tasks);
     }
 
     public boolean hasPermission(Long userId) {
@@ -67,7 +76,7 @@ public class TaskList {
     private static class Flag {
         private boolean status = true;
 
-        boolean check() {
+        public boolean check() {
             status = !status;
             return !status;
         }

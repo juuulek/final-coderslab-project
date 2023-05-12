@@ -81,7 +81,7 @@ Content-Type: application/json
   "listId": 2,
   "description": "odkupić, bo jej zeżarłeś",
   "tags": "mleczne",
-  "deadline": "14-05-2023 12:00"
+  "deadline": "11-05-2023 12:00"
 }
 
 ###
@@ -93,6 +93,17 @@ Content-Type: application/json
   "listId": 1,
   "tags": "mleczne,dla niej",
   "deadline": "14-05-2023 12:00"
+}
+
+###
+POST http://localhost:9876/api/tasks
+Content-Type: application/json
+
+{
+  "name": "pluszak",
+  "listId": 2,
+  "description": "po porodzie",
+  "appearance": "16-05-2023 00:00"
 }
 
 ###

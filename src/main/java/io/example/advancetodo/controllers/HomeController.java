@@ -1,5 +1,6 @@
 package io.example.advancetodo.controllers;
 
+import io.example.advancetodo.entities.ListFilter;
 import io.example.advancetodo.entities.TaskList;
 import io.example.advancetodo.entities.User;
 import io.example.advancetodo.repositories.UserRepository;
@@ -70,31 +71,81 @@ public class HomeController {
         else
             return "Użytkownik " + nick + " nie istnieje";
 
-        StringBuilder response = new StringBuilder();
-        response.append("<p>\n");
-        response.append(user.toHtml());
-        response.append("</p>\n");
+        // nagłówek, style, przywitanie
+        StringBuilder response = new StringBuilder("<!DOCTYPE html>\n" +
+                "<html lang=\"pl\">\n" +
+                "<head>\n" +
+                "    <meta charset=\"UTF-8\">\n" +
+                "    <title>to do — " + user.getLogin() + "</title>\n" +
+                "    <style>\n" +
+                "        .odd {\n" +
+                "            background: #eee;\n" +
+                "        }\n" +
+                "        .id {\n" +
+                "            font-size: smaller;\n" +
+                "        }\n" +
+                "        div,.list {\n" +
+                "            margin-left: 20px;\n" +
+                "        }\n" +
+                "        .done {\n" +
+                "            color: dimgray;\n" +
+                "            text-decoration: line-through;\n" +
+                "        }\n" +
+                "        .not_appeared {\n" +
+                "            color: dimgray;\n" +
+                "            font-style: italic;\n" +
+                "        }\n" +
+                "        .alert {\n" +
+                "            color: yellow;\n" +
+                "        }\n" +
+                "        .deadline {\n" +
+                "            color: red;\n" +
+                "        }\n" +
+                "    </style>\n" +
+                "</head>\n\n" +
+                "<body>\n" +
+                "<p>Witaj " + user.getLogin() + "!</p>\n\n");
 
+        // szczegóły użytkownika
+        response.append("<details>\n" +
+                "    <summary>Szczegóły użytkownika</summary>\n" +
+                "    <div class=\"login odd\">login:\t" + user.getLogin() + "</div>\n" +
+                "    <div class=\"mail even\">e-mail:\t" + user.getMail() + "</div>\n" +
+                "    <div class=\"id odd\">id:\t" + user.getId() + "</div>\n" +
+                "</details>\n\n");
 
-        response.append("<p>\n");
-        response.append("Własne listy:");
-        if (user.getItsLists() == null)
-            response.append("brak");
+        // listy własnych zadań
+        response.append("<details>\n" +
+                "    <summary>Własne zadania</summary>\n");
+        if (user.getItsLists() == null || user.getItsLists().isEmpty())
+            response.append("        <div>" + user.getLogin() + " nie posiada żadnych własnych list zadań!</div>\n");
         else
-            for (TaskList itsList : user.getItsLists())
-                response.append("<div>" + itsList.toHtml() + "</div>");
-        response.append("</p>\n");
+            for (TaskList list : user.getItsLists())
+                response.append(list.toHtml());
+        response.append("</details>\n\n");
 
-
-        response.append("<p>\n");
-        response.append("Udostępnione listy:");
-        if (user.getListsSharedIts() == null)
-            response.append("brak");
+        // udostępnione listy zadań
+        response.append("<details>\n" +
+                "    <summary>Udostępnione zadania</summary>\n");
+        if (user.getListsSharedIts() == null || user.getListsSharedIts().isEmpty())
+            response.append("        <div>Użytkownikowi " + user.getLogin() + " nie udostępniono żadnych list zadań!</div>\n");
         else
-            for (TaskList listSharedIts : user.getListsSharedIts())
-                response.append("<div>" + listSharedIts.toHtml() + "</div>");
-        response.append("</p>\n");
+            for (TaskList list : user.getListsSharedIts())
+                response.append(list.toHtml());
+        response.append("</details>\n\n");
 
+        // filtry zadań
+        response.append("<details>\n" +
+                "    <summary>Filtry zadań</summary>\n");
+        if (user.getFilters() == null || user.getFilters().isEmpty())
+            response.append("        <div>" + user.getLogin() + " nie posiada żadnych filtrów zadań!</div>\n");
+        else
+            for (ListFilter filter : user.getFilters())
+                response.append(filter.toHtml());
+        response.append("</details>\n\n");
+
+        response.append("</body>\n" +
+                "</html>");
         return response.toString();
     }
 }

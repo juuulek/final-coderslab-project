@@ -8,6 +8,7 @@ import javax.persistence.Column;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,6 +17,10 @@ import java.util.List;
 public class ListFilterDto {
     @Schema(description = "Task id", example = "10")
     private Long id;
+
+    @Schema(description = "Name (very short description) of filter", example = "house")
+    @Size(min = 3, max = 63)
+    private String name;
 
     @Schema(description = "Id of owner of this filter", example = "13")
     @NotNull

@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -59,5 +60,23 @@ public class TaskListController {
     public ResponseEntity<TaskListDto> update(@PathVariable Long id, @RequestBody @Valid TaskListDto dto) {
         dto = taskListService.update(id, dto);
         return ResponseEntity.ok(dto);
+    }
+
+    @Operation(summary = "Save list as CSV", description = "Gets specific task list by id and create CSV file")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Successful response"),
+            @ApiResponse(responseCode = "404", description = "List or contents cannot be found")
+    })
+    @GetMapping("/csv/{id}")
+    public ResponseEntity<TaskListDto> saveAsCSV(@PathVariable Long id) {
+        TaskListDto dto;
+        try {
+            dto = taskListService.saveAsCSV(id);
+        } catch (IOException e) {
+            return ResponseEntity.internalServerError().build();
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.notFound().build();
+        }
+        return dto == null ? ResponseEntity.notFound().build() : ResponseEntity.ok(dto);
     }
 }

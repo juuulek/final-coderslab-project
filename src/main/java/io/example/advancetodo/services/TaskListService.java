@@ -1,8 +1,11 @@
 package io.example.advancetodo.services;
 
+import com.opencsv.CSVWriter;
 import io.example.advancetodo.dtos.TaskListDto;
+import io.example.advancetodo.entities.Task;
 import io.example.advancetodo.entities.TaskList;
 import io.example.advancetodo.mappers.TaskListMapper;
+import io.example.advancetodo.mappers.TaskMapper;
 import io.example.advancetodo.repositories.TaskListRepository;
 import io.example.advancetodo.repositories.TaskRepository;
 import lombok.AllArgsConstructor;
@@ -10,6 +13,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import javax.transaction.Transactional;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.List;
 
 @Service
@@ -18,6 +23,7 @@ public class TaskListService {
     private final TaskListRepository taskListRepository;
     private final TaskListMapper taskListMapper;
     private final TaskRepository taskRepository;
+    private final TaskMapper taskMapper;
 
     public List<TaskListDto> getAll() {
         return taskListMapper.mapToDto(taskListRepository.findAll());
@@ -59,5 +65,21 @@ public class TaskListService {
         TaskList entity = taskListMapper.mapToEntity(dto);
         taskListRepository.save(entity);
         return taskListMapper.mapToDto(entity);
+    }
+
+    public TaskListDto saveAsCSV(Long id) throws IOException {
+        TaskList taskList = taskListRepository.findById(id).orElse(null);
+        if (taskList == null)
+            throw new IllegalArgumentException("Task list doesn't exist");
+        List<Task> tasks = taskList.getTasks();
+        if (tasks == null || tasks.isEmpty())
+            throw new IllegalArgumentException("Task list has no tasks");
+        List<String[]> csvRows = taskMapper.mapTasksToCsvRows(tasks);
+
+        try (CSVWriter writer = new CSVWriter(new FileWriter(taskList.getName() + ".csv"))) {
+            writer.writeAll(csvRows);
+        }
+
+        return taskListMapper.mapToDto(taskList);
     }
 }

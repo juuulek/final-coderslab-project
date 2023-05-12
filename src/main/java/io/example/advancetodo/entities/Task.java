@@ -76,6 +76,13 @@ public class Task {
         this.deadline = deadline;
     }
 
+    public void setDone(LocalDateTime done) {
+        if (done != null)
+            if (done.isAfter(LocalDateTime.now()))
+                throw new IllegalArgumentException("Task cannot be mark as done with a future date/time");
+        this.done = done;
+    }
+
     public boolean hasTag(String compareTag) {
         if (tags != null && !tags.isBlank())
             for (String myTag : tags.split(","))
